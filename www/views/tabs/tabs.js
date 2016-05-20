@@ -1,6 +1,7 @@
 angular.module('starter')
-.controller('TabsCtrl', function($scope, AuthService, $ionicModal, SNURL, $http, $ionicLoading, $timeout, $state){
+.controller('TabsCtrl', function($scope, AuthService, $ionicModal, SNURL, $http, $ionicLoading, $timeout, $state, socket){
 	var token = localStorage.getItem('token');
+	var username = localStorage.getItem('user.name');
 	$scope.searchBy = 'tag';
 
 	$scope.logout = function(){
@@ -54,7 +55,25 @@ angular.module('starter')
   			$state.go('tab.tag_category', {name: name});
   		}
   	};
+
+  	$scope.notificationsCount = 0;
+
+  	socket.on('user.'+username+':App\\Events\\UserCommented', function(data){
+		$scope.notificationsCount += 1;
+	});
+
+	socket.on('user.'+username+':App\\Events\\UserIsInspired', function(data){
+		$scope.notificationsCount += 1;
+	});
 })
+
+
+
+
+
+
+
+
 .controller('CategoriesCtrl', function(SNURL, $http, $scope, $stateParams, $state){
 	var token = localStorage.getItem('token');
 	$scope.tag_title = $stateParams.name;
