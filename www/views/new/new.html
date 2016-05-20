@@ -1,0 +1,48 @@
+<ion-view view-title="New Topic" cache-view="false">
+	<ion-content>
+		<img class="picture" ng-show="picture != undefined" id="myImage" src="{{ picture }}"/>
+		<!-- {{ data }} <br /> -->
+		<!-- {{ err }} -->
+		<cordova-video ng-show="video != ''" src="video"></cordova-video>
+		<ion-list>
+			<label class="item item-input item-stacked-label">
+				<span class="input-label">Title</span>
+				<input id="title" ng-model="title" type="text" placeholder="New Topic Title">
+			</label>
+			<label class="item item-input item-stacked-label">
+				<span class="input-label">Body</span>
+				<textarea id="body" ng-model="body"></textarea>
+			</label>
+			<label class="item item-input item-select tag">
+			   <div class="input-label">
+			   	tags
+			   </div>
+			    <select id="tags_name" ng-model="tags_name">
+			    	<option ng-repeat="tag in tags">{{ tag.name }}</option>
+			    </select>
+			</label>
+
+			<label class="item item-input item-select">
+			    <div class="input-label">
+			      Topic category
+			    </div>
+			    <select id="topic_title" ng-model="topic_title">
+			      <option ng-repeat="post in posts">{{ post.topic_title }}</option>
+			    </select>
+			</label>
+				<div class="row">
+					<div class="col">
+						<button class="button button-balanced button-block" ng-click="takePicture(1)"><i class="icon ion-camera"></i></button>
+					</div>
+					<div class="col">
+						<button class="button button-balanced button-block" ng-click="takePicture(0)"><i class="icon ion-image"></i></button>
+					</div>
+					<div class="col">
+						<button class="button button-balanced button-block" ng-click="captureVideo()"><i class="icon ion-ios-videocam"></i></button>
+					</div>
+				</div>
+			<button class="button button-full button-calm" ng-disabled="!title || !body || !tags_name || !topic_title" ng-click="submit(title, body, tags_name, topic_title)">Submit</button>
+			<button class="button button-full button-assertive" ng-click="cancel()">Cancel</button>
+		</ion-list>
+	</ion-content>
+</ion-view>

@@ -1,0 +1,10 @@
+<ion-view view-title="Notifications">
+	<ion-content>
+		<ul class="list">
+		    <li class="item" ng-repeat="n in notifications">
+		      <span ng-show="n.type == 'new_comment'">{{ n.userCommenter }} has posted a new comment</span>
+		      <span ng-show="n.type == 'user_inspired'">{{ n.inspiredUser }} is inspired by your post</span>
+		    </li>
+		</ul>
+	</ion-content>
+</ion-view>

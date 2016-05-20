@@ -1,0 +1,15 @@
+<ion-view view-title="Login">
+	<ion-nav-bar class="bar-stable">
+	</ion-nav-bar>
+	<ion-content>
+		<div class="list space-top padding">
+		  <label class="item item-input">
+		    <input type="email"  ng-model="email" placeholder="Email">
+		  </label>
+		  <label class="item item-input">
+		    <input type="password" ng-model="password" placeholder="Password">
+		  </label>
+		  <button ng-click="login(email, password)"class="button button-full button-positive" ng-disabled="!email || !password">Login</button>
+		</div>
+	</ion-content>
+</ion-view>
