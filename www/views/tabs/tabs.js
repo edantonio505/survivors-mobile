@@ -1,5 +1,5 @@
 angular.module('starter')
-.controller('TabsCtrl', function($scope, AuthService, $ionicModal, SNURL, $http, $ionicLoading, $timeout, $state, socket){
+.controller('TabsCtrl', function($scope, AuthService, $ionicModal, SNURL, $http, $ionicLoading, $timeout, $state, socket, EventService){
 	var token = localStorage.getItem('token');
 	var username = localStorage.getItem('user.name');
 	$scope.searchBy = 'tag';
@@ -56,14 +56,22 @@ angular.module('starter')
   		}
   	};
 
-  	$scope.notificationsCount = 0;
+
 
   	socket.on('user.'+username+':App\\Events\\UserCommented', function(data){
-		$scope.notificationsCount += 1;
+		$scope.notificationsCount = EventService.handleEvents(data);
 	});
 
 	socket.on('user.'+username+':App\\Events\\UserIsInspired', function(data){
-		$scope.notificationsCount += 1;
+		$scope.notificationsCount = EventService.handleEvents(data);
+	});
+
+	socket.on('user.'+username+':App\\Events\\UserConnectionAdded', function(data){
+		$scope.notificationsCount = EventService.handleEvents(data);
+	});
+
+	socket.on('user.'+username+':App\\Events\\UserAcceptedConnection', function(data){
+		$scope.notificationsCount = EventService.handleEvents(data);
 	});
 })
 

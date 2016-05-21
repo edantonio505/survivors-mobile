@@ -4,6 +4,8 @@
 		    <li class="item" ng-repeat="n in notifications">
 		      <span ng-show="n.type == 'new_comment'">{{ n.userCommenter }} has posted a new comment</span>
 		      <span ng-show="n.type == 'user_inspired'">{{ n.inspiredUser }} is inspired by your post</span>
+		      <span ng-show="n.type == 'new_connection'">{{ n.newConnection }} wants to be your connection</span>
+		      <span ng-show="n.type == 'user_accepted_connection'">{{ n.AcceptingUser }} is now your connection</span>
 		    </li>
 		</ul>
 	</ion-content>
