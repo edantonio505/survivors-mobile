@@ -73,6 +73,10 @@ angular.module('starter')
 	socket.on('user.'+username+':App\\Events\\UserAcceptedConnection', function(data){
 		$scope.notificationsCount = EventService.handleEvents(data);
 	});
+
+	socket.on('user.'+username+':App\\Events\\ConnectionCreatedPost', function(data){
+		$scope.notificationsCount = EventService.handleEvents(data);
+	});
 })
 
 
