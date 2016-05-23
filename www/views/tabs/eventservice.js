@@ -2,9 +2,15 @@ angular.module('starter')
 .factory('EventService', function($rootScope){
 	$rootScope.notificationsCount = 0;
   	$rootScope.notifications = [];
+  	$rootScope.newComments = 0;
   	$rootScope.newPost = 0;
 	var eventFunctions = {
 		handleEvents: function(data){
+			if(data.type == 'new_comment')
+			{
+				$rootScope.newComments += 1;
+			}
+
 			if(data.type == 'user_inspired')
 			{
 				$rootScope.inspired_count += 1;
