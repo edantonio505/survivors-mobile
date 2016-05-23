@@ -6,7 +6,6 @@ angular.module('starter')
 		pic_thumbnail: ''
 	};
 	$scope.video_visible = false;
-
 	$http.get(SNURL+'get_topic/'+$stateParams.id+'/'+authEmail+'?token='+token)
 	.success(function(response){
 		$scope.topic = response;
