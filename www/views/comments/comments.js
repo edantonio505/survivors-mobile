@@ -1,5 +1,5 @@
 angular.module('starter')
-.controller('CommentsCtrl', function($http, $scope, $stateParams, SNURL){
+.controller('CommentsCtrl', function($http, $scope, $stateParams, SNURL, $ionicLoading, $timeout){
 	var token = localStorage.getItem('token');
 	var AuthUserName = localStorage.getItem('user.name');
 	var AuthUserAvatar = localStorage.getItem('user.avatar');
@@ -15,6 +15,7 @@ angular.module('starter')
 			$scope.comments = response.comments;
 			$scope.created_time = response.created_time;
 			$scope.tags = response.tags;
+			$ionicLoading.hide();
 		});
 	};
 
@@ -37,7 +38,11 @@ angular.module('starter')
 		});
 	};
 
-	$scope.init();
+	$ionicLoading.show();
+	$timeout(function(){
+		$scope.init();
+	});
+	
 })
 .controller('CommentsUserCtrl', function($scope, $http, $stateParams, SNURL, UsersConnectionService, $state){
 	var token = localStorage.getItem('token');
