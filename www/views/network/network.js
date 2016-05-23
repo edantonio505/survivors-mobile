@@ -1,12 +1,21 @@
 angular.module('starter')
-.controller('NetworkCtrl', function($scope, $http, SNURL, $state){
+.controller('NetworkCtrl', function($scope, $http, SNURL, $state, $rootScope){
 	var token = localStorage.getItem('token');
 	var AuthEmail = localStorage.getItem('user.email');
-	
-	$http.get(SNURL+'get_connections?token='+token+'&AuthEmail='+AuthEmail)
-	.success(function(response){
-		$scope.connections = response;
+
+	$rootScope.$watch('connections_count', function(newValue, oldValue){
+		$scope.init();
 	});
+	
+
+	$scope.init = function(){
+		$http.get(SNURL+'get_connections?token='+token+'&AuthEmail='+AuthEmail)
+		.success(function(response){
+			$scope.connections = response;
+		});
+	};
+	
+	$scope.init();
 })
 .controller('ConnectionProfileCtrl', function($scope, $http, SNURL, $stateParams, $state){
 	var token = localStorage.getItem('token');

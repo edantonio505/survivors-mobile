@@ -1,29 +1,58 @@
 angular.module('starter')
-.controller('ProfileCtrl', function($scope, $http, $ionicLoading, $timeout, SNURL, $ionicPopup, $state){
+.controller('ProfileCtrl', function(
+	$scope, 
+	$http, 
+	SNURL, 
+	$ionicPopup, 
+	$state, 
+	$rootScope, 
+	EventService,
+	$timeout,
+	$ionicLoading
+){
 	$scope.user = [];
 	var token = localStorage.getItem('token');
+	$scope.topics_count = 0;
+	$scope.connections_count = 0;
+	$scope.inspired_count = 0;
 
-	$ionicLoading.show();
-	$timeout(function(){
+	$rootScope.$watch('inspired_count', function(newValue, oldValue){
+		$scope.inspired_count = newValue;
+	});
+
+	$rootScope.$watch('connections_count', function(newValue, oldValue){
+		$scope.connections_count = newValue;
+	});
+
+	$rootScope.$watch('topics_count', function(newValue, oldValue){
+		$scope.init();
+	});
+
+	$scope.init = function(){
 		$http.get(SNURL+'authenticate/user?token='+token)
 		.success(function(response){
-			$ionicLoading.hide();
 			$scope.user = response.user;
-			$scope.topics_count = response.user.topics_count;
-			$scope.connections_count = response.user.connections_count;
-			$scope.inspired_count = response.user.inspired_count;
+			EventService.handleProfileChanges(response);
+			$scope.topics_count = $rootScope.topics_count;
+			$scope.connections_count = $rootScope.connections_count;
+			$scope.inspired_count = $rootScope.inspired_count;
+			$ionicLoading.hide();
 		})
 		.error(function(error){
-			$ionicLoading.hide();
 			$ionicPopup.alert({
 		     title: 'Error',
 		     template: 'Check your internet connection or try again later.'
 		   });
 		});
-	}, $timeout || 2000);
-
+	};
 
 	$scope.checkTopic = function(id){
 		$state.go('tab.profile_topic', {id: id});
 	};
+
+	$ionicLoading.show();
+	$timeout(function(){
+		$scope.init();
+	}, $timeout);
+	
 });

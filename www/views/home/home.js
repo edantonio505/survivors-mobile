@@ -1,6 +1,14 @@
 angular.module('starter')
-.controller('HomeCtrl', function($scope, $http, $state, SNURL, AuthService, videoService, InspireService){
-
+.controller('HomeCtrl', function(
+	$scope, 
+	$http, 
+	$state, 
+	SNURL, 
+	AuthService, 
+	videoService, 
+	InspireService,  
+	$rootScope
+){
 	$scope.topics = [];
 	var token = localStorage.getItem('token');
 	var authEmail = localStorage.getItem('user.email');
@@ -43,6 +51,7 @@ angular.module('starter')
 	};
 
 	$scope.refresh = function(){
+		$rootScope.newPost = 0;
 		$scope.noMoreItemsAvailable = false;
 		$scope.init();
 		$scope.$broadcast('scroll.refreshComplete');

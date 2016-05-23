@@ -1,14 +1,29 @@
 angular.module('starter')
-.controller('TabsCtrl', function($scope, AuthService, $ionicModal, SNURL, $http, $ionicLoading, $timeout, $state, socket, EventService){
+.controller('TabsCtrl', function(
+	$scope, 
+	AuthService, 
+	$ionicModal, 
+	SNURL, 
+	$http, 
+	$ionicLoading, 
+	$timeout, 
+	$state, 
+	socket, 
+	EventService,
+	$rootScope
+){
 	var token = localStorage.getItem('token');
 	var username = localStorage.getItem('user.name');
 	$scope.searchBy = 'tag';
+	$scope.newPosts = 0;
+
+	$rootScope.$watch('newPost', function(newValue, oldValue) {
+	  $scope.newPosts = newValue;
+	});
 
 	$scope.logout = function(){
 		AuthService.logout();
 	};
-
-	
 
 	$scope.byName = function(){
 		$scope.searchBy = 'name';
@@ -56,14 +71,16 @@ angular.module('starter')
   		}
   	};
 
-
-
   	socket.on('user.'+username+':App\\Events\\UserCommented', function(data){
 		$scope.notificationsCount = EventService.handleEvents(data);
 	});
 
 	socket.on('user.'+username+':App\\Events\\UserIsInspired', function(data){
-		$scope.notificationsCount = EventService.handleEvents(data);
+		if(data.userCreator != username){
+			$scope.notificationsCount = EventService.handleEvents(data);
+		} else {
+			$rootScope.inspired_count += 1;
+		}
 	});
 
 	socket.on('user.'+username+':App\\Events\\UserConnectionAdded', function(data){
@@ -76,6 +93,23 @@ angular.module('starter')
 
 	socket.on('user.'+username+':App\\Events\\ConnectionCreatedPost', function(data){
 		$scope.notificationsCount = EventService.handleEvents(data);
+	});
+
+	socket.on('all.users:App\\Events\\NewPost', function(data){
+		if(data.userCreator != username){
+			EventService.handleNewPost();
+			$scope.newPosts = $rootScope.newPost;
+		} else {
+			$rootScope.topics_count += 1;
+		}
+	});
+
+	socket.on('user.'+username+':App\\Events\\YouAcceptedConnection', function(data){
+		EventService.handleEvents(data);
+	});
+
+	socket.on('user.'+username+':App\\Events\\UserUninspired', function(data){
+		EventService.handleEvents(data);
 	});
 })
 
