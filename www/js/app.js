@@ -14,10 +14,10 @@ angular.module('starter', [
     }
   });
 })
-// .constant('SNURL', 'http://52.87.187.229/api/v1/')
-// .constant('SNSOCKET', 'http://52.87.187.229:6001')
-.constant('SNURL', 'http://survivorsnetwork.dev/api/v1/')
-.constant('SNSOCKET', 'http://survivorsnetwork.dev:6001')
+.constant('SNURL', 'http://52.87.187.229/api/v1/')
+.constant('SNSOCKET', 'http://52.87.187.229:6001')
+// .constant('SNURL', 'http://survivorsnetwork.dev/api/v1/')
+// .constant('SNSOCKET', 'http://survivorsnetwork.dev:6001')
 .config(function($sceDelegateProvider, $ionicConfigProvider) {
   $sceDelegateProvider.resourceUrlWhitelist([
     'self',

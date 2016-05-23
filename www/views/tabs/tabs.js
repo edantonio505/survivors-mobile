@@ -76,7 +76,7 @@ angular.module('starter')
 	});
 
 	socket.on('user.'+username+':App\\Events\\UserIsInspired', function(data){
-		if(data.userCreator != username){
+		if(data.inspiredUser != username){
 			$scope.notificationsCount = EventService.handleEvents(data);
 		} else {
 			$rootScope.inspired_count += 1;
