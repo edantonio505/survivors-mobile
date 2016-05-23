@@ -18,7 +18,10 @@ angular.module('starter')
 				$rootScope.inspired_count -= 1;
 			} else {
 				$rootScope.notificationsCount += 1;
-				$rootScope.notifications.unshift(data);
+				if(data.type != 'you_accepted_connection')
+				{
+					$rootScope.notifications.unshift(data);
+				}
 			}
 			return $rootScope.notificationsCount;
 		}, 
