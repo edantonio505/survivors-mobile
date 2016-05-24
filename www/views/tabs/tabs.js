@@ -16,6 +16,7 @@ angular.module('starter')
 	var username = localStorage.getItem('user.name');
 	$scope.searchBy = 'tag';
 	$scope.newPosts = 0;
+	$scope.notificationsCount = $rootScope.notificationsCount;
 
 	$rootScope.$watch('newPost', function(newValue, oldValue) {
 	  $scope.newPosts = newValue;

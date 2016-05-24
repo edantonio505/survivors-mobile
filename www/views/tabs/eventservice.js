@@ -1,7 +1,7 @@
 angular.module('starter')
 .factory('EventService', function($rootScope){
-	$rootScope.notificationsCount = 0;
-  	$rootScope.notifications = [];
+	// $rootScope.notificationsCount = 0;
+  	// $rootScope.notifications = [];
   	$rootScope.newComments = 0;
   	$rootScope.newPost = 0;
 	var eventFunctions = {

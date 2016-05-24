@@ -1,5 +1,5 @@
 angular.module('starter')
-.controller('LoginCtrl', function($scope, $ionicLoading, $timeout, $state, $http, $ionicPopup, SNURL, $ionicHistory){
+.controller('LoginCtrl', function($scope, $ionicLoading, $timeout, $state, $http, $ionicPopup, SNURL, $ionicHistory, $rootScope, EventService){
 	$scope.token = null;
 
 	$scope.checkIfLoggedIn = function(){
@@ -24,6 +24,8 @@ angular.module('starter')
 				password: password
 			})
 			.success(function(response){
+				$rootScope.notificationsCount = response.log_count;
+				$rootScope.notifications = response.event_logs;
 				var token = response.token;
 				localStorage.setItem('token', token);
 				localStorage.setItem('user.email', email);
