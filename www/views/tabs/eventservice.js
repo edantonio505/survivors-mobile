@@ -23,9 +23,11 @@ angular.module('starter')
 			{
 				$rootScope.inspired_count -= 1;
 			} else {
+				// if(!$rootScope.notificationsCount){ $rootScope.notificationsCount = 0;}
 				$rootScope.notificationsCount += 1;
 				if(data.type != 'you_accepted_connection')
-				{
+				{   
+					// if(!$rootScope.notifications){ $rootScope.notifications = [];}
 					$rootScope.notifications.unshift(data);
 				}
 			}

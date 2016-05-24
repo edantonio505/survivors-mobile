@@ -1,5 +1,12 @@
 angular.module('starter')
-.controller('LoginCtrl', function($scope, $ionicLoading, $timeout, $state, $http, $ionicPopup, SNURL, $ionicHistory, $rootScope, EventService){
+.controller('LoginCtrl', function(
+	$scope, 
+	$ionicLoading, 
+	$timeout, $state, 
+	$http, $ionicPopup, 
+	SNURL, $ionicHistory, 
+	$rootScope
+){
 	$scope.token = null;
 
 	$scope.checkIfLoggedIn = function(){
