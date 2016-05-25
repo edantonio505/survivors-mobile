@@ -1,11 +1,13 @@
 angular.module('starter')
-.factory('AuthService', function($ionicLoading, $timeout, $state, $ionicHistory){
+.factory('AuthService', function($ionicLoading, $timeout, $state, $ionicHistory, $rootScope){
 	var token = {
 		status: function(){
 			var t = localStorage.getItem('token');
 			if(!t){this.logout();}
 		},
 		logout: function(){
+			$rootScope.notificationsCount = 0;
+			$rootScope.notifications = [];
 			$ionicHistory.clearHistory();
 			$ionicHistory.clearCache();
 			localStorage.removeItem('token');
@@ -37,7 +39,7 @@ angular.module('starter')
 
 	return Popup;
 })
-.factory('UsersConnectionService', function(SNURL, $http, Popup){
+.factory('UsersConnectionService', function(SNURL, $http, Popup, $rootScope){
 	var token = localStorage.getItem('token');
 	var AuthUserEmail = localStorage.getItem('user.email');
 
@@ -61,6 +63,7 @@ angular.module('starter')
 				console.log(err);
 			});
 			return 'Connected';
+			$rootScope.connections_count += 1;
 		}
 	};
 	return usersfunctions;
@@ -123,7 +126,7 @@ angular.module('starter')
         $rootScope.$apply(function () {
           callback.apply(socket, args);
         });
-      });
+      }.bind(this));
     }
   };
 });

@@ -1,5 +1,5 @@
 angular.module('starter')
-.controller('CommentsCtrl', function($http, $scope, $stateParams, SNURL, $ionicLoading, $timeout, $rootScope){
+.controller('CommentsCtrl', function($http, $scope, $stateParams, SNURL, $ionicLoading, $timeout){
 	var token = localStorage.getItem('token');
 	var AuthUserName = localStorage.getItem('user.name');
 	var AuthUserAvatar = localStorage.getItem('user.avatar');
@@ -48,7 +48,10 @@ angular.module('starter')
 	});
 	
 })
-.controller('CommentsUserCtrl', function($scope, $http, $stateParams, SNURL, UsersConnectionService, $state){
+
+
+
+.controller('CommentsUserCtrl', function($scope, $http, $stateParams, SNURL, UsersConnectionService, $state, $rootScope){
 	var token = localStorage.getItem('token');
 	$scope.AuthUserEmail = localStorage.getItem('user.email');
 
@@ -68,6 +71,8 @@ angular.module('starter')
 
 	$scope.accept = function(username){
 		$scope.status = UsersConnectionService.accept(username);
+		$rootScope.connections_count += 1;
+		$rootScope.youAccepted_user = true;
 	};
 
 	$scope.addConnection = function(username){

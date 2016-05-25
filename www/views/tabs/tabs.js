@@ -10,7 +10,8 @@ angular.module('starter')
 	$state, 
 	socket, 
 	EventService,
-	$rootScope
+	$rootScope,
+	$ionicScrollDelegate
 ){
 	var token = localStorage.getItem('token');
 	var username = localStorage.getItem('user.name');
@@ -20,6 +21,10 @@ angular.module('starter')
 
 	$rootScope.$watch('newPost', function(newValue, oldValue) {
 	  $scope.newPosts = newValue;
+	});
+
+	$rootScope.$watch('notificationsCount', function(newValue, oldValue){
+		$scope.notificationsCount = newValue;
 	});
 
 	$scope.logout = function(){
@@ -72,10 +77,39 @@ angular.module('starter')
   		}
   	};
 
+  	$scope.onTabSelected = function(){
+  		$rootScope.notificationsCount = 0;
+  		$http.post(SNURL+'logs_viewed/'+username);
+  	};
+
+  	$scope.onTabDeselected = function(){
+  		if($rootScope.notifications.length > 30)
+  		{	
+  			$rootScope.notifications.splice(30, $rootScope.notifications.length - 30);
+  		}
+  	};
+
+  	$scope.onHomeTopicsLimit = function(){
+  		$rootScope.home_status = true;
+  	};
+
+  	$scope.onHomeSelected = function(){
+  		$ionicScrollDelegate.scrollTop();
+  	} 
+
+
+
+
+
+
+
+
+
+
+  	// -----------------------------------Events------------------------------------------
   	socket.on('user.'+username+':App\\Events\\UserCommented', function(data){
 		$scope.notificationsCount = EventService.handleEvents(data);
 	});
-
 	socket.on('user.'+username+':App\\Events\\UserIsInspired', function(data){
 		if(data.inspiredUser != username){
 			$scope.notificationsCount = EventService.handleEvents(data);
@@ -83,19 +117,15 @@ angular.module('starter')
 			$rootScope.inspired_count += 1;
 		}
 	});
-
 	socket.on('user.'+username+':App\\Events\\UserConnectionAdded', function(data){
 		$scope.notificationsCount = EventService.handleEvents(data);
 	});
-
 	socket.on('user.'+username+':App\\Events\\UserAcceptedConnection', function(data){
 		$scope.notificationsCount = EventService.handleEvents(data);
 	});
-
 	socket.on('user.'+username+':App\\Events\\ConnectionCreatedPost', function(data){
 		$scope.notificationsCount = EventService.handleEvents(data);
 	});
-
 	socket.on('all.users:App\\Events\\NewPost', function(data){
 		if(data.userCreator != username){
 			EventService.handleNewPost();
@@ -104,14 +134,10 @@ angular.module('starter')
 			$rootScope.topics_count += 1;
 		}
 	});
-
-	socket.on('user.'+username+':App\\Events\\YouAcceptedConnection', function(data){
-		EventService.handleEvents(data);
-	});
-
 	socket.on('user.'+username+':App\\Events\\UserUninspired', function(data){
 		EventService.handleEvents(data);
 	});
+	// --------------------------------------------------------------------------------------------
 })
 
 

@@ -2,9 +2,12 @@ angular.module('starter')
 .controller('LoginCtrl', function(
 	$scope, 
 	$ionicLoading, 
-	$timeout, $state, 
-	$http, $ionicPopup, 
-	SNURL, $ionicHistory, 
+	$timeout, 
+	$state, 
+	$http, 
+	$ionicPopup, 
+	SNURL, 
+	$ionicHistory, 
 	$rootScope
 ){
 	$scope.token = null;
@@ -31,8 +34,14 @@ angular.module('starter')
 				password: password
 			})
 			.success(function(response){
-				$rootScope.notificationsCount = response.log_count;
-				$rootScope.notifications = response.event_logs;
+				if(response.log_count == 0)
+				{
+					$rootScope.notificationsCount = 0;
+					$rootScope.notifications = [];
+				} else {
+					$rootScope.notificationsCount = response.log_count;
+					$rootScope.notifications = response.event_logs;
+				}
 				var token = response.token;
 				localStorage.setItem('token', token);
 				localStorage.setItem('user.email', email);

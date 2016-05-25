@@ -28,6 +28,16 @@ angular.module('starter')
 		});
 	};
 
+	$rootScope.$watch('home_status', function(newValue, oldValue){
+		if($rootScope.home_status == true)
+		{	
+			$scope.init();
+			$scope.noMoreItemsAvailable = false;
+		}
+		$rootScope.home_status = false;
+	});
+
+
 	$scope.playVideo = function(video, thumbnail){
 		videoService.play(video, thumbnail);	
 	};

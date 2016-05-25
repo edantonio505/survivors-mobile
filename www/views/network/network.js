@@ -3,18 +3,24 @@ angular.module('starter')
 	var token = localStorage.getItem('token');
 	var AuthEmail = localStorage.getItem('user.email');
 
-	$rootScope.$watch('connections_count', function(newValue, oldValue){
-		$scope.init();
-	});
-	
-
 	$scope.init = function(){
 		$http.get(SNURL+'get_connections?token='+token+'&AuthEmail='+AuthEmail)
 		.success(function(response){
 			$scope.connections = response;
 		});
 	};
-	
+
+	$rootScope.$watch('connections_count', function(newValue, oldValue){
+		$scope.init();
+	});
+
+	$scope.$on("$ionicView.enter", function(event, data){
+		if($rootScope.youAccepted_user === true){
+			$scope.init();
+			$rootScope.youAccepted_user = false;
+		}
+	});
+
 	$scope.init();
 })
 .controller('ConnectionProfileCtrl', function($scope, $http, SNURL, $stateParams, $state){

@@ -1,5 +1,15 @@
 angular.module('starter')
-.controller('UserProfileCtrl', function($scope, $http, $stateParams, SNURL, $ionicLoading, $timeout, UsersConnectionService, $state){
+.controller('UserProfileCtrl', function(
+	$scope, 
+	$http, 
+	$stateParams, 
+	SNURL, 
+	$ionicLoading, 
+	$timeout, 
+	UsersConnectionService, 
+	$state,
+	$rootScope
+){
 	var token = localStorage.getItem('token');
 	$scope.AuthUserEmail = localStorage.getItem('user.email');
 
@@ -23,6 +33,8 @@ angular.module('starter')
 
 	$scope.accept = function(username){
 		$scope.status = UsersConnectionService.accept(username);
+		$rootScope.connections_count += 1;
+		$rootScope.youAccepted_user = true;
 	};
 
 	$scope.addConnection = function(username){
