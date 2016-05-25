@@ -15,6 +15,7 @@ angular.module('starter')
 	
 	$scope.init = function() {
 		AuthService.status();
+		$rootScope.newPost = 0;
 		$http.get(SNURL+'topics/'+authEmail+'?token='+token)
 		.success(function(topics) {
 			$scope.next_page = topics.next_page_url;
@@ -61,7 +62,6 @@ angular.module('starter')
 	};
 
 	$scope.refresh = function(){
-		$rootScope.newPost = 0;
 		$scope.noMoreItemsAvailable = false;
 		$scope.init();
 		$scope.$broadcast('scroll.refreshComplete');
