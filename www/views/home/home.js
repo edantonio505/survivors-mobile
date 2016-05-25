@@ -29,12 +29,18 @@ angular.module('starter')
 		});
 	};
 
+	$rootScope.$watch('newPost', function(newValue, oldValue){
+		if(newValue != 0){
+			document.getElementById('newPostNotification').style.display = 'block';
+		}
+	});
+
 	$rootScope.$watch('home_status', function(newValue, oldValue){
 		if($rootScope.home_status == true)
 		{	
 			$scope.init();
-			$scope.noMoreItemsAvailable = false;
 		}
+		$scope.noMoreItemsAvailable = false;
 		$rootScope.home_status = false;
 	});
 
@@ -62,6 +68,7 @@ angular.module('starter')
 	};
 
 	$scope.refresh = function(){
+		document.getElementById('newPostNotification').style.display = 'none';
 		$scope.noMoreItemsAvailable = false;
 		$scope.init();
 		$scope.$broadcast('scroll.refreshComplete');
