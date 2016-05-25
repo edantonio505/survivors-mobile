@@ -1,5 +1,5 @@
 angular.module('starter')
-.controller('CommentsCtrl', function($http, $scope, $stateParams, SNURL, $ionicLoading, $timeout){
+.controller('CommentsCtrl', function($http, $scope, $stateParams, SNURL, $ionicLoading, $timeout, $rootScope){
 	var token = localStorage.getItem('token');
 	var AuthUserName = localStorage.getItem('user.name');
 	var AuthUserAvatar = localStorage.getItem('user.avatar');
