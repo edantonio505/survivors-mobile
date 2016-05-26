@@ -15,7 +15,8 @@ angular.module('starter')
 			localStorage.removeItem('user.password');
 			localStorage.removeItem('user.avatar');
 			localStorage.removeItem('user.name');
-
+			$rootScope.notificationsCount = 0;
+			$rootScope.notifications = [];
 
 			$ionicLoading.show();
 			$timeout(function(){
