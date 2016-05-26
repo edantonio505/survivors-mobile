@@ -3,12 +3,13 @@
   <name>survivorsMobile</name>
   <description>
         A Mobile version for survivors Network
-    </description>
+  </description>
   <author email="edantonio505@gmail.com" href="http://www.edddesign.com/">
       Edgar Velazquez
     </author>
   <content src="index.html"/>
   <access origin="*"/>
+  <allow-navigation href="*" />
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>

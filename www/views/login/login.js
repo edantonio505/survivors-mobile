@@ -8,7 +8,9 @@ angular.module('starter')
 	$ionicPopup, 
 	SNURL, 
 	$ionicHistory, 
-	$rootScope
+	$rootScope,
+	$cordovaOauth,
+	$ionicModal
 ){
 	$scope.token = null;
 
@@ -42,12 +44,7 @@ angular.module('starter')
 					$rootScope.notificationsCount = response.log_count;
 					$rootScope.notifications = response.event_logs;
 				}
-				var token = response.token;
-				localStorage.setItem('token', token);
-				localStorage.setItem('user.email', email);
-				localStorage.setItem('user.password', password);
-				localStorage.setItem('user.name', response.user_name);
-				localStorage.setItem('user.avatar', response.user_avatar);
+				$scope.getCredentials(response, email, password);
 				$state.go('tab.home');
 				$ionicLoading.hide();
 			})
@@ -60,5 +57,55 @@ angular.module('starter')
 			});
 		}, $timeout || 3000);		
 	};
+
+	$scope.getCredentials = function(response, email, password){
+		if(email === '')
+		{
+			email = response.email;
+		}
+
+		localStorage.setItem('token', response.token);
+		localStorage.setItem('user.email', email);
+		localStorage.setItem('user.password', password);
+		localStorage.setItem('user.name', response.user_name);
+		localStorage.setItem('user.avatar', response.user_avatar);
+	};
+
+	
+	$scope.googleLogin = function(){
+		$cordovaOauth.google("875167662896-f637cn01j1i4qb6cqjkhfi4q2722321e.apps.googleusercontent.com", ["email", "https://www.googleapis.com/auth/userinfo.profile"]).then(function(result){
+		 	$scope.access_token = result.access_token;
+		 	
+		 	$ionicModal.fromTemplateUrl('views/login/create_password.html', {
+			    scope: $scope,
+				animation: 'slide-in-up'
+			}).then(function(modal) {
+				$scope.modal = modal;
+				$scope.modal.show();
+			});
+		}, function(error) {
+		    console.log("Error -> " + error);
+		});
+	}
+
+	$scope.closeModal = function(){
+		$scope.modal.hide();
+		$scope.modal.remove();
+	};
+
+	$scope.getNewPassword = function(newPassword){
+		$ionicLoading.show();
+		$http.post(SNURL+'authenticate/signup_oauth', {
+			access_token: $scope.access_token,
+			password: newPassword		
+		}).success(function(response){
+			$scope.getCredentials(response, '', newPassword);
+			$state.go('tab.home');
+			$ionicLoading.hide();
+		});
+		$scope.modal.hide();
+		$scope.modal.remove();
+	}
+
 	$scope.checkIfLoggedIn();
 });

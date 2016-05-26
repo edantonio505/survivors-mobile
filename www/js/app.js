@@ -1,7 +1,8 @@
 angular.module('starter', [
       'ionic', 
       'ngCordova', 
-      'ionicLazyLoad'])
+      'ionicLazyLoad',
+      'ngCordovaOauth'])
 .run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
@@ -148,6 +149,11 @@ angular.module('starter', [
   .state('login', {
     url: '/login',
     templateUrl: 'views/login/login.html',
+    controller: 'LoginCtrl'
+  })
+  .state('register', {
+    url: '/register',
+    templateUrl: 'views/register/register.html',
     controller: 'LoginCtrl'
   })
   .state('tab.tag_category', {

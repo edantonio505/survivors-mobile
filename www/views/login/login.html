@@ -1,15 +1,22 @@
-<ion-view view-title="Login">
-	<ion-nav-bar class="bar-stable">
+<ion-view hide-nav-bar="true">
+	<ion-nav-bar class="bar-balanced">
 	</ion-nav-bar>
-	<ion-content>
+	<ion-content class="loginContent">
 		<div class="list space-top padding">
-		  <label class="item item-input">
+			<div class="logoImageContainer">
+				<img class="survivorsLogo" src="img/survivorsnetowrklogo.svg">
+			</div>
+			<h2 class="text-center">Survivors Network</h2>
+		  <label class="item item-input login">
 		    <input type="email"  ng-model="email" placeholder="Email">
 		  </label>
-		  <label class="item item-input">
+		  <label class="item item-input login">
 		    <input type="password" ng-model="password" placeholder="Password">
 		  </label>
-		  <button ng-click="login(email, password)"class="button button-full button-positive" ng-disabled="!email || !password">Login</button>
+		  <button ng-click="login(email, password)" class="button button-block button-outline button-light" ng-disabled="!email || !password">Login</button>
+			<div class="text-center question">
+				<a class="loginChoice" href="#/register">Dont have an account?</a>
+			</div>
 		</div>
 	</ion-content>
 </ion-view>

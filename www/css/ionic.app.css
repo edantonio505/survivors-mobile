@@ -26,6 +26,7 @@ $dark:                            #444 !default;
   used under CC BY http://creativecommons.org/licenses/by/4.0/
   Modified icons to fit ionicon’s grid from original.
 */
+@import url(https://fonts.googleapis.com/css?family=Oswald);
 @font-face {
   font-family: "Ionicons";
   src: url("../lib/ionic/fonts/ionicons.eot?v=2.0.1");
@@ -9734,7 +9735,7 @@ a.button {
 /* Empty. Add your own CSS if you like */
 .space-top {
   position: absolute;
-  top: 150px;
+  top: 15%;
   width: 100%; }
 
 video {
@@ -10118,3 +10119,56 @@ video {
   color: white;
   display: none;
   background-color: #a6d3ff; }
+
+.buttonInMiddle {
+  margin-top: 60%;
+  margin-bottom: 0px; }
+
+.buttonInMiddle i {
+  font-size: 30px;
+  position: relative;
+  top: 5px; }
+
+.buttonInMiddle a {
+  text-decoration: none; }
+
+.buttonInMiddle h3 {
+  color: white; }
+
+.buttonInMiddle .button {
+  background-color: transparent !important;
+  border: 1px solid white;
+  color: white;
+  height: 70px; }
+
+.buttonInMiddle .button-submit {
+  height: 40px; }
+
+.loginContent {
+  background-color: #4caf4c; }
+
+.loginChoice {
+  color: white !important; }
+
+.logoImageContainer {
+  height: 131.91px;
+  width: 155px;
+  margin: 0 auto; }
+
+.space-top h2 {
+  margin-top: 0px;
+  color: white;
+  font-family: verdana;
+  font-family: 'Oswald', sans-serif;
+  font-size: 300%; }
+
+.item.item-input.login {
+  background-color: transparent;
+  border: 0px none transparent;
+  border-bottom: 1px solid white; }
+
+.item.item-input.login input, .item.item-input.login span {
+  color: white; }
+
+.cancelCreatePassword {
+  color: white; }
