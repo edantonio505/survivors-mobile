@@ -1,13 +1,12 @@
 angular.module('starter')
 .controller('CommentsCtrl', function($http, $scope, $stateParams, SNURL, $ionicLoading, $timeout, $rootScope){
-	var token = localStorage.getItem('token');
 	var AuthUserName = localStorage.getItem('user.name');
 	var AuthUserAvatar = localStorage.getItem('user.avatar');
 	$scope.comments = [];
 	$scope.topic = $stateParams;
 
 	$scope.init = function(){
-		$http.get(SNURL+'comments/'+$stateParams.id+'?token='+token)
+		$http.get(SNURL+'comments/'+$stateParams.id)
 		.success(function(response){
 			$scope.body = response.body;
 			$scope.user = response.post_user;
@@ -25,7 +24,7 @@ angular.module('starter')
 			user_name: AuthUserName,
 			user_avatar: AuthUserAvatar
 		};
-		$http.post(SNURL+'post_comment/'+$stateParams.id+'/'+AuthUserName+'?token='+token, {
+		$http.post(SNURL+'post_comment/'+$stateParams.id+'/'+AuthUserName, {
 			body: newComment
 		})
 		.error(function(response){
@@ -52,10 +51,9 @@ angular.module('starter')
 
 
 .controller('CommentsUserCtrl', function($scope, $http, $stateParams, SNURL, UsersConnectionService, $state, $rootScope){
-	var token = localStorage.getItem('token');
 	$scope.AuthUserEmail = localStorage.getItem('user.email');
 
-	$http.get(SNURL+'get_user_by/'+$stateParams.name+'/'+$scope.AuthUserEmail+'?token='+token).
+	$http.get(SNURL+'get_user_by/'+$stateParams.name+'/'+$scope.AuthUserEmail).
 	success(function(response){
 		$scope.user = response.user;
 		$scope.status = response.user.status;

@@ -10,12 +10,11 @@ angular.module('starter')
 	$state,
 	$rootScope
 ){
-	var token = localStorage.getItem('token');
 	$scope.AuthUserEmail = localStorage.getItem('user.email');
 
 	$ionicLoading.show();
 	$timeout(function(){
-		$http.get(SNURL+'get_user/'+$stateParams.topicId+'/'+$scope.AuthUserEmail+'?token='+token)
+		$http.get(SNURL+'get_user/'+$stateParams.topicId+'/'+$scope.AuthUserEmail)
 		.success(function(response){
 			$scope.user = response.user;
 			$scope.status = response.user.status;

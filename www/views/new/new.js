@@ -1,10 +1,9 @@
 angular.module('starter')
 .controller('NewCtrl', function($scope, $http, SNURL, $cordovaFileTransfer, $ionicPopup, $ionicLoading, $timeout, $state, $cordovaCamera, $cordovaCapture, $ionicHistory){
 
-	var token = localStorage.getItem('token');
 	var email = localStorage.getItem('user.email');
 
-	$http.get(SNURL+'create?token='+token)
+	$http.get(SNURL+'create')
 	.success(function(response){
 		$scope.tags = response.tags;
 		$scope.posts = response.topicTitle;
@@ -48,7 +47,7 @@ angular.module('starter')
 
 
 	$scope.uploadFile = function(options, file){
-		$cordovaFileTransfer.upload(SNURL+'store?token='+token, file, options)
+		$cordovaFileTransfer.upload(SNURL+'store', file, options)
 		.then(function(response) {
 			return response;
 		}, function(err) {
@@ -113,7 +112,7 @@ angular.module('starter')
 	// -------------------------------------------------------------------------
 
 	$scope.postNoFile = function(title, body, tags_name, topic_title, slug){
-		$http.post(SNURL+'store?token='+token, {
+		$http.post(SNURL+'store', {
 			title: title,
 			body: body,
 			slug: slug,

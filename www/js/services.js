@@ -40,12 +40,11 @@ angular.module('starter')
 	return Popup;
 })
 .factory('UsersConnectionService', function(SNURL, $http, Popup, $rootScope){
-	var token = localStorage.getItem('token');
 	var AuthUserEmail = localStorage.getItem('user.email');
 
 	var usersfunctions = {
 		connect: function(username){
-			$http.post(SNURL+'add_connection?token='+token, {
+			$http.post(SNURL+'add_connection', {
 				authenticated: AuthUserEmail,
 				newConnection: username
 			}).
@@ -55,7 +54,7 @@ angular.module('starter')
 			return 'Waiting';
 		}, 
 		accept: function(username){
-			$http.post(SNURL+'accept_connection?token='+token, {
+			$http.post(SNURL+'accept_connection', {
 				authenticated: AuthUserEmail,
 				acceptConnectionFrom: username
 			}).
@@ -69,7 +68,6 @@ angular.module('starter')
 	return usersfunctions;
 })
 .factory('InspireService', function($http, SNURL){
-	var token = localStorage.getItem('token');
 	var authEmail = localStorage.getItem('user.email');
 	var Inspire  = {
 		inspired: function(topic_id){
@@ -79,14 +77,14 @@ angular.module('starter')
 			{	
 				$inspiredCount.innerHTML = Number($inspiredCount.innerHTML) - 1;
 				angular.element($inspireIcon).removeClass('inspired');
-				$http.get(SNURL+'topic/'+topic_id+'/'+authEmail+'/uninspire?token='+token).
+				$http.get(SNURL+'topic/'+topic_id+'/'+authEmail+'/uninspire').
 				error(function(err){
 					alert('There was an Error');
 				})
 			}else {
 				angular.element($inspireIcon).addClass('inspired');
 				$inspiredCount.innerHTML = Number($inspiredCount.innerHTML) + 1;
-				$http.get(SNURL+'topic/'+topic_id+'/'+authEmail+'/inspires?token='+token).
+				$http.get(SNURL+'topic/'+topic_id+'/'+authEmail+'/inspires').
 				error(function(err){
 					alert('There was an error');
 				});
@@ -99,7 +97,7 @@ angular.module('starter')
 			{	
 				$inspiredCount[0].innerHTML = Number($inspiredCount[0].innerHTML) - 1;
 				angular.element($inspireIcon).removeClass('inspired');
-				$http.get(SNURL+'topic/'+topic_id+'/'+authEmail+'/uninspire?token='+token).
+				$http.get(SNURL+'topic/'+topic_id+'/'+authEmail+'/uninspire').
 				error(function(err){
 					alert(err);
 					console.log(err);
@@ -107,7 +105,7 @@ angular.module('starter')
 			}else {
 				angular.element($inspireIcon[0]).addClass('inspired');
 				$inspiredCount[0].innerHTML = Number($inspiredCount[0].innerHTML) + 1;
-				$http.get(SNURL+'topic/'+topic_id+'/'+authEmail+'/inspires?token='+token).
+				$http.get(SNURL+'topic/'+topic_id+'/'+authEmail+'/inspires').
 				error(function(err){
 					alert('There was an error');
 				});

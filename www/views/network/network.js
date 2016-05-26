@@ -1,10 +1,9 @@
 angular.module('starter')
 .controller('NetworkCtrl', function($scope, $http, SNURL, $state, $rootScope){
-	var token = localStorage.getItem('token');
 	var AuthEmail = localStorage.getItem('user.email');
 
 	$scope.init = function(){
-		$http.get(SNURL+'get_connections?token='+token+'&AuthEmail='+AuthEmail)
+		$http.get(SNURL+'get_connections?AuthEmail='+AuthEmail)
 		.success(function(response){
 			$scope.connections = response;
 		});
@@ -24,8 +23,7 @@ angular.module('starter')
 	$scope.init();
 })
 .controller('ConnectionProfileCtrl', function($scope, $http, SNURL, $stateParams, $state){
-	var token = localStorage.getItem('token');
-	$http.get(SNURL+'get_user_byid/'+$stateParams.id+'?token='+token)
+	$http.get(SNURL+'get_user_byid/'+$stateParams.id)
 	.success(function(response){
 		$avatarContainer = document.getElementById('avatarContainer');
 		$avatarContainer.addEventListener("load", function(){

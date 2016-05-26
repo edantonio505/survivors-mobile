@@ -11,7 +11,6 @@ angular.module('starter')
 	$ionicLoading
 ){
 	$scope.user = [];
-	var token = localStorage.getItem('token');
 	$scope.topics_count = 0;
 	$scope.connections_count = 0;
 	$scope.inspired_count = 0;
@@ -29,7 +28,7 @@ angular.module('starter')
 	});
 
 	$scope.init = function(){
-		$http.get(SNURL+'authenticate/user?token='+token)
+		$http.get(SNURL+'authenticate/user')
 		.success(function(response){
 			$scope.user = response.user;
 			EventService.handleProfileChanges(response);

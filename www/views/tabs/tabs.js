@@ -13,7 +13,6 @@ angular.module('starter')
 	$rootScope,
 	$ionicScrollDelegate
 ){
-	var token = localStorage.getItem('token');
 	var username = localStorage.getItem('user.name');
 	$scope.searchBy = 'tag';
 	$scope.newPosts = 0;
@@ -55,7 +54,7 @@ angular.module('starter')
 	$scope.requestSearch = function(){
 		$ionicLoading.show();
 		$timeout(function(){
-			$http.get(SNURL+'search_by/'+$scope.searchBy+'?token='+token)
+			$http.get(SNURL+'search_by/'+$scope.searchBy)
 			.success(function(response){
 				$ionicLoading.hide();
 				$scope.rs = response;
@@ -148,9 +147,8 @@ angular.module('starter')
 
 
 .controller('CategoriesCtrl', function(SNURL, $http, $scope, $stateParams, $state){
-	var token = localStorage.getItem('token');
 	$scope.tag_title = $stateParams.name;
-	$http.get(SNURL+'get_categories/'+$stateParams.name+'?token='+token)
+	$http.get(SNURL+'get_categories/'+$stateParams.name)
 	.success(function(response){
 		$scope.topics = response;
 	});

@@ -7,24 +7,26 @@ angular.module('starter')
 	AuthService, 
 	videoService, 
 	InspireService,  
-	$rootScope
+	$rootScope,
+	jwtHelper
 ){
 	$scope.topics = [];
-	var token = localStorage.getItem('token');
 	var authEmail = localStorage.getItem('user.email');
 	
 	$scope.init = function() {
 		AuthService.status();
 		$rootScope.newPost = 0;
-		$http.get(SNURL+'topics/'+authEmail+'?token='+token)
+		$http.get(SNURL+'topics/'+authEmail)
 		.success(function(topics) {
 			$scope.next_page = topics.next_page_url;
 			$scope.topics = topics.data;
 		})
 		.error(function(response){
 			if(response.error == 'token_expired'){
-				AuthService.logout();
-				$state.go($state.current, {}, {reload: true});
+				$http.post(SNURL+'delegate')
+				.success(function(res){
+					console.log(res);
+				});
 			}
 		});
 	};
@@ -52,7 +54,7 @@ angular.module('starter')
 	$scope.noMoreItemsAvailable = false;
 
 	$scope.loadMore = function() {
-	  $http.get($scope.next_page+'&token='+token)
+	  $http.get($scope.next_page)
 	  .success(function (topics) {
 	      	$scope.next_page = topics.next_page_url;
 			$scope.topics = $scope.topics.concat(topics.data);

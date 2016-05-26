@@ -1,13 +1,12 @@
 angular.module('starter')
 .controller('TopicCtrl', function($scope, $http, SNURL, $stateParams, InspireService, videoService, $sce){
-	var token = localStorage.getItem('token');
 	var authEmail = localStorage.getItem('user.email');
 	$scope.topic = {
 		pic_thumbnail: ''
 	};
 	$scope.video_visible = false;
 
-	$http.get(SNURL+'get_topic/'+$stateParams.id+'/'+authEmail+'?token='+token)
+	$http.get(SNURL+'get_topic/'+$stateParams.id+'/'+authEmail)
 	.success(function(response){
 		$scope.topic = response;
 		$scope.video = response.video;
