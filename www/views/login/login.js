@@ -59,7 +59,7 @@ angular.module('starter')
 	};
 
 	$scope.getCredentials = function(response, email, password){
-		if(email === '')
+		if(email == '')
 		{
 			email = response.email;
 		}
@@ -75,7 +75,6 @@ angular.module('starter')
 	$scope.googleLogin = function(){
 		$cordovaOauth.google("875167662896-f637cn01j1i4qb6cqjkhfi4q2722321e.apps.googleusercontent.com", ["email", "https://www.googleapis.com/auth/userinfo.profile"]).then(function(result){
 		 	$scope.access_token = result.access_token;
-		 	
 		 	$ionicModal.fromTemplateUrl('views/login/create_password.html', {
 			    scope: $scope,
 				animation: 'slide-in-up'
