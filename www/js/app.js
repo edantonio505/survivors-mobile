@@ -185,6 +185,34 @@ angular.module('starter', [
   }
   $httpProvider.interceptors.push('jwtInterceptor');
 })
+
+
+.config(function Config($httpProvider, jwtInterceptorProvider) {
+  jwtInterceptorProvider.tokenGetter = function(jwtHelper, $http, SNURL) {
+    var jwt = localStorage.getItem('token');
+    if(jwt)
+    {
+      if (jwtHelper.isTokenExpired(jwt)) {
+          // This is a promise of a JWT id_token
+          return $http({
+              url : SNURL+'delegate',
+              skipAuthorization : true,
+              method: 'GET',
+              headers : { Authorization : 'Bearer '+ jwt},
+          }).then(function(response){
+              console.log(response);
+              localStorage.setItem('token',response.data.token);
+              return response.data.token;
+          },function(response){
+              localStorage.removeItem('token');                    
+          });
+        } else {
+          return jwt;
+        }
+    }
+  }
+  $httpProvider.interceptors.push('jwtInterceptor');
+})
 // -----------------------------------------------------------------------------------------------------------
 
 

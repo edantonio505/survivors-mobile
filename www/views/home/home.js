@@ -20,14 +20,6 @@ angular.module('starter')
 		.success(function(topics) {
 			$scope.next_page = topics.next_page_url;
 			$scope.topics = topics.data;
-		})
-		.error(function(response){
-			if(response.error == 'token_expired'){
-				$http.post(SNURL+'delegate')
-				.success(function(res){
-					console.log(res);
-				});
-			}
 		});
 	};
 
