@@ -103,9 +103,20 @@ angular.module('starter')
 			$scope.getCredentials(response, '', newPassword);
 			$state.go('tab.home');
 			$ionicLoading.hide();
+			$scope.modal.hide();
+			$scope.modal.remove();
+		})
+		.error(function(err){
+			$ionicLoading.hide();
+			$scope.modal.hide();
+			$scope.modal.remove();
+			$ionicPopup.alert({
+				title: 'Error',
+				template: 'You are already registered, please try login in',
+				okType: 'button-assertive'
+			});
 		});
-		$scope.modal.hide();
-		$scope.modal.remove();
+		
 	}
 
 	$scope.checkIfLoggedIn();
