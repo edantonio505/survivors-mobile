@@ -52,7 +52,7 @@ angular.module('starter')
 				$ionicPopup.alert({
 					title: 'Error',
 					cssClass: 'color: red',
-					template: 'Could not retrieve your profile',
+					template: 'Could not retrieve your profile, please try again.',
 					okType: 'button-assertive'
 				});
 				$ionicLoading.hide();
