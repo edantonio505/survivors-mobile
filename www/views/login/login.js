@@ -50,8 +50,10 @@ angular.module('starter')
 			})
 			.error(function(err){
 				$ionicPopup.alert({
-					title: 'Nah',
-					template: 'What a moron.. you don know your password haha'
+					title: 'Error',
+					cssClass: 'color: red',
+					template: 'Could not retrieve your profile',
+					okType: 'button-assertive'
 				});
 				$ionicLoading.hide();
 			});
