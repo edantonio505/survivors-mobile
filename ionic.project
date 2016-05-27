@@ -1,5 +1,5 @@
 {
-  "name": "survivorsMobile",
+  "name": "Survivors Network App",
   "app_id": "196dfde6",
   "gulpStartupTasks": [
     "sass",

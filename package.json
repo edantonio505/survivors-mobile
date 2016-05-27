@@ -1,7 +1,7 @@
 {
-  "name": "survivorsMobile",
+  "name": "Survivors Network App",
   "version": "1.1.1",
-  "description": "A Mobile version for survivors Network",
+  "description": "A Mobile Application for Survivors Network Community platform",
   "dependencies": {
     "gulp": "^3.5.6",
     "gulp-sass": "^2.0.4",
