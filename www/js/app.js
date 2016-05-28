@@ -200,7 +200,6 @@ angular.module('starter', [
               method: 'GET',
               headers : { Authorization : 'Bearer '+ jwt},
           }).then(function(response){
-              console.log(response);
               localStorage.setItem('token',response.data.token);
               return response.data.token;
           },function(response){

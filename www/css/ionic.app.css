@@ -10172,3 +10172,46 @@ video {
 
 .cancelCreatePassword {
   color: white; }
+
+.bar-subheader.new_topic .button {
+  color: #fff; }
+
+.picture {
+  height: 100px;
+  width: auto; }
+
+.button.new_topic_button {
+  border-radius: 50px !important;
+  height: 100px;
+  width: 100px; }
+
+.new_topic_content .input-label,
+.new_topic_content input,
+.new_topic_content textarea,
+.new_topic_content select {
+  color: #999999 !important; }
+
+.new_topic_content .topic_body {
+  border-color: transparent;
+  border-style: none;
+  border-width: 0px; }
+
+.new_topic_content textarea, .new_topic_content .topic_body {
+  height: 80px; }
+
+.new_topic_content .item {
+  border: 0px none transparent !important; }
+
+.line_input_label {
+  height: 1px;
+  width: 90%;
+  background-color: #dbdbdb;
+  margin: 0 auto;
+  padding-top: 2px; }
+
+.line_input_label.body {
+  height: 1px;
+  width: 90%;
+  background-color: #dbdbdb;
+  margin: 0 auto;
+  padding-top: 0px; }

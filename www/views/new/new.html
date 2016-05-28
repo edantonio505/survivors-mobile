@@ -1,18 +1,45 @@
 <ion-view view-title="New Topic" cache-view="false">
-	<ion-content>
-		<img class="picture" ng-show="picture != undefined" id="myImage" src="{{ picture }}"/>
-		<!-- {{ data }} <br /> -->
-		<!-- {{ err }} -->
-		<cordova-video ng-show="video != ''" src="video"></cordova-video>
-		<ion-list>
-			<label class="item item-input item-stacked-label">
-				<span class="input-label">Title</span>
-				<input id="title" ng-model="title" type="text" placeholder="New Topic Title">
+	
+	<div class="bar bar-subheader bar-dark new_topic">
+		<div class="button-bar">
+		  <a class="button button-icon icon ion-camera" ng-click="takePicture(1)"></a>
+		  <a class="button button-icon icon ion-image" ng-click="takePicture(0)"></a>
+		  <a class="button button-icon icon ion-ios-videocam" ng-click="captureVideo()"></a>
+		</div>
+	</div>
+	<ion-content class="has-subheader new_topic_content">
+		
+			<label class="item item-input item-select">
+			    <div class="input-label">
+			      Topic category
+			    </div>
+			    <select id="topic_title" ng-model="topic_title">
+			      <option ng-repeat="post in posts">{{ post.topic_title }}</option>
+			    </select>
 			</label>
+			<div class="line_input_label"></div>
 			<label class="item item-input item-stacked-label">
-				<span class="input-label">Body</span>
-				<textarea id="body" ng-model="body"></textarea>
+				
+				<span class="input-label">Topic title</span>
+				<input id="title" ng-model="title" type="text">
 			</label>
+
+			<div class="line_input_label body"></div>
+			<div class="row">
+				<div class="col" ng-show="hasFile">
+					<cordova-video ng-show="video != ''" src="video"></cordova-video>
+					<img class="picture" ng-show="picture != undefined" id="myImage" src="{{ picture }}" />
+				</div>
+				<div class="col" ng-class="{'col-75': hasFile}">
+					<label class="item item-input item-stacked-label topic_body">
+						<span class="input-label">Body</span>
+						<textarea id="body" ng-model="body"></textarea>
+					</label>
+				</div>
+			</div>
+		
+			
+			<div class="line_input_label"></div>
 			<label class="item item-input item-select tag">
 			   <div class="input-label">
 			   	tags
@@ -22,27 +49,21 @@
 			    </select>
 			</label>
 
-			<label class="item item-input item-select">
-			    <div class="input-label">
-			      Topic category
-			    </div>
-			    <select id="topic_title" ng-model="topic_title">
-			      <option ng-repeat="post in posts">{{ post.topic_title }}</option>
-			    </select>
-			</label>
-				<div class="row">
-					<div class="col">
-						<button class="button button-balanced button-block" ng-click="takePicture(1)"><i class="icon ion-camera"></i></button>
-					</div>
-					<div class="col">
-						<button class="button button-balanced button-block" ng-click="takePicture(0)"><i class="icon ion-image"></i></button>
-					</div>
-					<div class="col">
-						<button class="button button-balanced button-block" ng-click="captureVideo()"><i class="icon ion-ios-videocam"></i></button>
-					</div>
+			<div class="row text-center">
+				<div class="col">
+					<button class="button icon button icon ion-checkmark-round button-balanced button-outline new_topic_button" ng-disabled="!title || !body || !tags_name || !topic_title" ng-click="submit(title, body, tags_name, topic_title)"></button>
 				</div>
-			<button class="button button-full button-calm" ng-disabled="!title || !body || !tags_name || !topic_title" ng-click="submit(title, body, tags_name, topic_title)">Submit</button>
-			<button class="button button-full button-assertive" ng-click="cancel()">Cancel</button>
-		</ion-list>
+				<div class="col">
+					<button class="button icon ion-close-round button-outline button-assertive new_topic_button" ng-click="cancel()"></button>
+				</div>
+			</div>
+		
+		
+		<!-- {{ data }} <br /> -->
+		<!-- {{ err }} -->
+		
+
+
+		
 	</ion-content>
 </ion-view>

@@ -10,14 +10,16 @@ angular.module('starter')
 	});
 
 	$scope.video = '';
-
+	$scope.hasFile = false;
 	
 	$scope.captureVideo = function() {
 	    var options = { limit: 3, duration: 15 };
 
 	    $scope.video = '';
+
 	   	$cordovaCapture.captureVideo(options).then(function(videoData) {
 	     	$scope.video = videoData[0].fullPath;
+	     	$scope.hasFile = true;
 	    }, function(err) {
 	      $scope.err = err;
 	    });
@@ -34,6 +36,7 @@ angular.module('starter')
 
 	    $cordovaCamera.getPicture(options).then(function(imageURI) {
 	      $scope.picture = imageURI;
+	      $scope.hasFile = true;
 	    }, function(err) {
 	      $scope.err = err;
 	    });
@@ -43,6 +46,7 @@ angular.module('starter')
 		$scope.cleanForm();
 		$scope.data = undefined;
 		$scope.err = undefined;
+		$scope.hasFile = false;
 	};
 
 
