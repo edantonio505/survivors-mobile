@@ -554,8 +554,8 @@ video {
 }
 
 .picture {
-	height: 90px;
-	width: auto;
+	height: 90px !important;
+	width: auto !important;
 }
 
 .button.new_topic_button{

@@ -36,7 +36,7 @@
 			<div class="line_input_label body"></div>
 			<div class="row">
 				<div class="col" ng-show="hasFile">
-					<cordova-video ng-show="video != ''" src="video"></cordova-video>
+					<cordova-video class="picture" ng-show="video != ''" src="video"></cordova-video>
 					<img class="picture" ng-show="picture != undefined" id="myImage" src="{{ picture }}" />
 				</div>
 				<div class="col" ng-class="{'col-67': hasFile}">
