@@ -62,6 +62,7 @@ angular.module('starter')
 		$scope.data = undefined;
 		$scope.err = undefined;
 		$scope.hasFile = false;
+		$scope.tags = [];
 	};
 
 
@@ -176,7 +177,7 @@ angular.module('starter')
 				$state.go('tab.home');
 				$scope.cleanForm();
 				$ionicLoading.hide();
-			}, 1000);
+			}, $timeout);
 
 		} else if($scope.video != ''){
 			$ionicLoading.show();
@@ -186,7 +187,7 @@ angular.module('starter')
 				$state.go('tab.home');
 				$scope.cleanForm();
 				$ionicLoading.hide();
-			}, 1000);
+			}, $timeout);
 		} else {
 			$scope.postNoFile(title, body, tags_name, topic_title, slug);
 		}
