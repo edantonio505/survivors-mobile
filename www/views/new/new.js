@@ -1,12 +1,25 @@
 angular.module('starter')
-.controller('NewCtrl', function($scope, $http, SNURL, $cordovaFileTransfer, $ionicPopup, $ionicLoading, $timeout, $state, $cordovaCamera, $cordovaCapture, $ionicHistory){
+.controller('NewCtrl', function(
+	$scope, 
+	$http, 
+	SNURL, 
+	$cordovaFileTransfer, 
+	$ionicPopup, $ionicLoading, 
+	$timeout, 
+	$state, 
+	$cordovaCamera, 
+	$cordovaCapture, 
+	$ionicHistory
+){
 
 	var email = localStorage.getItem('user.email');
+	$scope.tags = [];
+
 
 	$http.get(SNURL+'create')
 	.success(function(response){
-		$scope.tags = response.tags;
 		$scope.posts = response.topicTitle;
+		$scope.allTags = response.tags;
 	});
 
 	$scope.video = '';
@@ -25,7 +38,9 @@ angular.module('starter')
 	    });
 	}
 	
-
+	$scope.loadItems = function(query) {
+		return $scope.allTags;
+	};
 
 	$scope.takePicture = function(sourceType){
 		var options = {
@@ -143,10 +158,10 @@ angular.module('starter')
 	$scope.cleanForm = function(){
 		document.getElementById('title').value = '';
 		document.getElementById('body').value = '';
-		document.getElementById('tags_name').value = '';
 		document.getElementById('topic_title').value = '';
 		$scope.picture = undefined;
 		$scope.video = '';
+		$scope.tags = [];
 	};
 
 

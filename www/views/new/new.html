@@ -40,18 +40,13 @@
 		
 			
 			<div class="line_input_label"></div>
-			<label class="item item-input item-select tag">
-			   <div class="input-label">
-			   	tags
-			   </div>
-			    <select id="tags_name" ng-model="tags_name">
-			    	<option ng-repeat="tag in tags">{{ tag.name }}</option>
-			    </select>
-			</label>
+			<tags-input ng-model="tags" class="bootstrap">
+				<auto-complete source="loadItems($query)"></auto-complete>
+			</tags-input>
 
 			<div class="row text-center">
 				<div class="col">
-					<button class="button icon button icon ion-checkmark-round button-balanced button-outline new_topic_button" ng-disabled="!title || !body || !tags_name || !topic_title" ng-click="submit(title, body, tags_name, topic_title)"></button>
+					<button class="button icon button icon ion-checkmark-round button-balanced button-outline new_topic_button" ng-disabled="!title || !body || !topic_title" ng-click="submit(title, body, tags, topic_title)"></button>
 				</div>
 				<div class="col">
 					<button class="button icon ion-close-round button-outline button-assertive new_topic_button" ng-click="cancel()"></button>
