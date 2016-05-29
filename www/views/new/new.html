@@ -17,16 +17,22 @@
 			      <option ng-repeat="post in posts">{{ post.topic_title }}</option>
 			    </select>
 			</label>
-			<div class="line_input_label"></div>
-			<label class="item item-input item-stacked-label">
-				
-				<span class="input-label">Topic title</span>
-				<input id="title" ng-model="title" type="text">
-			</label>
+
+
 			<div class="line_input_label"></div>
 			<tags-input ng-model="tags" class="bootstrap">
 				<auto-complete source="loadItems($query)"></auto-complete>
 			</tags-input>
+
+
+			<div class="line_input_label"></div>
+			<label class="item item-input item-stacked-label">
+				<span class="input-label">Topic title</span>
+				<input id="title" ng-model="title" type="text">
+			</label>
+
+
+
 			<div class="line_input_label body"></div>
 			<div class="row">
 				<div class="col" ng-show="hasFile">
@@ -44,7 +50,7 @@
 			
 			
 
-			<div class="row text-center">
+			<div class="row text-center new_button_container">
 				<div class="col">
 					<button class="button icon button icon ion-checkmark-round button-balanced button-outline new_topic_button" ng-disabled="!title || !body || !topic_title" ng-click="submit(title, body, tags, topic_title)"></button>
 				</div>
@@ -52,13 +58,6 @@
 					<button class="button icon ion-close-round button-outline button-assertive new_topic_button" ng-click="cancel()"></button>
 				</div>
 			</div>
-		
-		
-		<!-- {{ data }} <br /> -->
-		<!-- {{ err }} -->
-		
-
-
 		
 	</ion-content>
 </ion-view>

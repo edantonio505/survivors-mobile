@@ -10197,7 +10197,7 @@ video {
   border-width: 0px; }
 
 .new_topic_content textarea, .new_topic_content .topic_body {
-  height: 80px; }
+  height: 180px; }
 
 .new_topic_content .item {
   border: 0px none transparent !important; }
