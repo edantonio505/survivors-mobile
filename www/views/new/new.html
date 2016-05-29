@@ -23,14 +23,17 @@
 				<span class="input-label">Topic title</span>
 				<input id="title" ng-model="title" type="text">
 			</label>
-
+			<div class="line_input_label"></div>
+			<tags-input ng-model="tags" class="bootstrap">
+				<auto-complete source="loadItems($query)"></auto-complete>
+			</tags-input>
 			<div class="line_input_label body"></div>
 			<div class="row">
 				<div class="col" ng-show="hasFile">
 					<cordova-video ng-show="video != ''" src="video"></cordova-video>
 					<img class="picture" ng-show="picture != undefined" id="myImage" src="{{ picture }}" />
 				</div>
-				<div class="col" ng-class="{'col-75': hasFile}">
+				<div class="col" ng-class="{'col-67': hasFile}">
 					<label class="item item-input item-stacked-label topic_body">
 						<span class="input-label">Body</span>
 						<textarea id="body" ng-model="body"></textarea>
@@ -39,10 +42,7 @@
 			</div>
 		
 			
-			<div class="line_input_label"></div>
-			<tags-input ng-model="tags" class="bootstrap">
-				<auto-complete source="loadItems($query)"></auto-complete>
-			</tags-input>
+			
 
 			<div class="row text-center">
 				<div class="col">

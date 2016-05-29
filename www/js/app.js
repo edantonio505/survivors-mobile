@@ -231,7 +231,7 @@ angular.module('starter', [
         if (scope.src != "") {
           // Create a div object
           var div = document.createElement('div');
-          div.innerHTML = "<video id='video' class=\"video\" controls>"+
+          div.innerHTML = "<video id='video' class=\"picture\" controls>"+
                           "<source src=\"" + scope.src + "\" type=\"video/mp4\">"+
                           "</video>";
           

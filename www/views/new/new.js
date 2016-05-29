@@ -13,6 +13,7 @@ angular.module('starter')
 ){
 
 	var email = localStorage.getItem('user.email');
+	var token = localStorage.getItem('token');
 	$scope.tags = [];
 
 
@@ -67,7 +68,7 @@ angular.module('starter')
 
 
 	$scope.uploadFile = function(options, file){
-		$cordovaFileTransfer.upload(SNURL+'store', file, options)
+		$cordovaFileTransfer.upload(SNURL+'store?token='+token, file, options)
 		.then(function(response) {
 			return response;
 		}, function(err) {
@@ -76,8 +77,8 @@ angular.module('starter')
 		     title: 'Error',
 		     template: 'Check your internet conneciton or try again later.'
 		   });
-
 			// $scope.err = err;
+			console.log(err);
 		}, function (progress) {
 			// constant progress updates
 		});
@@ -177,7 +178,7 @@ angular.module('starter')
 				$state.go('tab.home');
 				$scope.cleanForm();
 				$ionicLoading.hide();
-			}, $timeout);
+			}, 1000);
 
 		} else if($scope.video != ''){
 			$ionicLoading.show();
@@ -187,7 +188,7 @@ angular.module('starter')
 				$state.go('tab.home');
 				$scope.cleanForm();
 				$ionicLoading.hide();
-			}, $timeout);
+			}, 1000);
 		} else {
 			$scope.postNoFile(title, body, tags_name, topic_title, slug);
 		}
