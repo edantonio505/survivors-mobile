@@ -10,7 +10,36 @@ angular.module('starter')
 	$cordovaCamera, 
 	$cordovaCapture, 
 	$ionicHistory
-){
+){	
+	// -------------------------------------Play Video---------------------------------
+	$scope.playingVideo = false;
+	$scope.playVideo = function(){
+		
+		var thumbnail = document.getElementById('thumbnail');
+
+		var video = document.getElementById('video');
+		$scope.playingVideo = true;
+		
+		video.requestFullscreen;
+		if (video.requestFullscreen) {
+		  video.requestFullscreen();
+		} else if (video.mozRequestFullScreen) {
+		  video.mozRequestFullScreen();
+		} else if (video.webkitRequestFullscreen) {
+		  video.webkitRequestFullscreen();
+		}
+		video.play();
+		$scope.checkVideoStatus(video, thumbnail);
+	};
+
+	$scope.checkVideoStatus = function(video, thumbnail){
+		video.addEventListener("ended", function(){
+			$scope.playingVideo = false;
+		}, true);
+	};
+
+	//----------------------------------------------------------------------------
+
 
 	var email = localStorage.getItem('user.email');
 	var token = localStorage.getItem('token');
