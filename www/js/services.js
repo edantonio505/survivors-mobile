@@ -6,7 +6,8 @@ angular.module('starter')
 	$ionicHistory, 
 	$rootScope, 
 	$http, 
-	SNURL
+	SNURL,
+	$ionicPopup
 ){
 	
 	function credentials(response, email, password){
