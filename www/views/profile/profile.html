@@ -1,5 +1,5 @@
 <ion-view view-title="Profile" cache-view="true">
-	<ion-content>
+	<ion-content lazy-scroll overflow-scroll='true'>
 		<div class="bc">
 			<div class="avatar row">
 				<div class="avatarContainer col col-50">
@@ -30,10 +30,7 @@
 				<div class="text_topic" ng-show="topic.pic_thumbnail == '' && topic.video == ''">
 					<i class="ion-android-list"></i>
 				</div>
-				<div ng-show="topic.pic_thumbnail != ''"  
-					style="height: 100%; width: 100%; background-size: cover;
-					background-image: url({{topic.pic_thumbnail}});"
-				></div>
+				<div ng-show="topic.pic_thumbnail != ''" image-lazy-src="{{ topic.pic_thumbnail }}" image-lazy-background-image="true" style="height: 100%; width: 100%; background-size: cover;"></div>
 				<div ng-show="topic.video_thumbnail != ''" image-lazy-src="{{ topic.video_thumbnail }}" image-lazy-background-image="true" style="height: 100%; width: 100%; background-size: cover;"></div>
 			</div>
 		</div>
