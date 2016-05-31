@@ -10,7 +10,9 @@ angular.module('starter')
 	$cordovaCamera, 
 	$cordovaCapture, 
 	$ionicHistory,
-	AuthService
+	AuthService,
+	$q,
+	$filter
 ){	
 	// -------------------------------------Play Video---------------------------------
 	$scope.playingVideo = false;
@@ -64,13 +66,16 @@ angular.module('starter')
 	   	$cordovaCapture.captureVideo(options).then(function(videoData) {
 	     	$scope.video = videoData[0].fullPath;
 	     	$scope.hasFile = true;
+	     	$scope.picture = undefined;
 	    }, function(err) {
 	      $scope.err = err;
 	    });
 	}
 	
 	$scope.loadItems = function(query) {
-		return $scope.allTags;
+		var deferred = $q.defer();
+		deferred.resolve($filter('filter')($scope.allTags, {text: query}));
+		return deferred.promise;
 	};
 
 	$scope.takePicture = function(sourceType){
@@ -83,6 +88,7 @@ angular.module('starter')
 	    $cordovaCamera.getPicture(options).then(function(imageURI) {
 	      $scope.picture = imageURI;
 	      $scope.hasFile = true;
+	      $scope.video = '';
 	    }, function(err) {
 	      $scope.err = err;
 	    });
