@@ -10261,3 +10261,21 @@ video {
 .bootstrap .autocomplete .suggestion-item.selected em {
   color: #262626;
   background-color: #ffff00; }
+
+.first_image_container {
+  height: 100px;
+  width: 100px;
+  margin: 0 auto; }
+
+.first_image_container img {
+  border-radius: 50px;
+  height: 100px;
+  width: auto; }
+
+.first_title h3 {
+  color: white; }
+
+.relogin_content {
+  position: absolute;
+  top: 25%;
+  width: 100%; }

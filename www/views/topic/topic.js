@@ -1,5 +1,5 @@
 angular.module('starter')
-.controller('TopicCtrl', function($scope, $http, SNURL, $stateParams, InspireService, videoService, $sce){
+.controller('TopicCtrl', function($scope, $http, SNURL, $stateParams, InspireService, videoService, $sce, AuthService){
 	var authEmail = localStorage.getItem('user.email');
 	$scope.topic = {
 		pic_thumbnail: ''
@@ -47,5 +47,7 @@ angular.module('starter')
 			video.style.display = 'none';
 		}, true);
 	};
+
+	AuthService.status();
 
 });

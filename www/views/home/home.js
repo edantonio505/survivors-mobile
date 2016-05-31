@@ -7,8 +7,7 @@ angular.module('starter')
 	AuthService, 
 	videoService, 
 	InspireService,  
-	$rootScope,
-	jwtHelper
+	$rootScope
 ){
 	$scope.topics = [];
 	var authEmail = localStorage.getItem('user.email');

@@ -1,11 +1,53 @@
 angular.module('starter')
-.factory('AuthService', function($ionicLoading, $timeout, $state, $ionicHistory, $rootScope){
+.factory('AuthService', function(
+	$ionicLoading, 
+	$timeout, 
+	$state, 
+	$ionicHistory, 
+	$rootScope, 
+	$http, 
+	SNURL
+){
+	
+	function credentials(response, email, password){
+		if(email == '')
+		{
+			email = response.email;
+		}
+
+		localStorage.setItem('token', response.token);
+		localStorage.setItem('user.email', email);
+		localStorage.setItem('user.password', password);
+		localStorage.setItem('user.name', response.user_name);
+		localStorage.setItem('user.avatar', response.user_avatar);
+	};
+
+
+
 	var token = {
 		status: function(){
 			var t = localStorage.getItem('token');
-			if(!t){this.logout();}
+			if(!t){this.redirect_home();}
 		},
 		logout: function(){
+			this.remove_Data();
+			this.loading();
+			
+		},
+		logout_no_loading: function(){
+			this.remove_Data();
+			$state.go('login');
+		},
+
+		loading: function(){
+			$ionicLoading.show();
+			$timeout(function(){
+				$state.go('login');
+				$ionicLoading.hide();
+			}, 2000);
+		},
+
+		remove_Data: function(){
 			$rootScope.notificationsCount = 0;
 			$rootScope.notifications = [];
 			$ionicHistory.clearHistory();
@@ -15,15 +57,57 @@ angular.module('starter')
 			localStorage.removeItem('user.password');
 			localStorage.removeItem('user.avatar');
 			localStorage.removeItem('user.name');
+		},
+
+		redirect_home: function(){
 			$rootScope.notificationsCount = 0;
 			$rootScope.notifications = [];
+			$ionicHistory.clearHistory();
+			$ionicHistory.clearCache();
+			localStorage.removeItem('token');
+
 
 			$ionicLoading.show();
 			$timeout(function(){
-				$state.go('login');
+				$state.go('relogin');
 				$ionicLoading.hide();
 			}, 2000);
-		}
+		},
+
+		login: function(email, password){
+
+			$ionicHistory.clearHistory();
+			$ionicHistory.clearCache();
+			$ionicLoading.show();
+			$timeout(function(){
+				$http.post(SNURL+'authenticate', {
+					email: email,
+					password: password
+				})
+				.success(function(response){
+					if(response.log_count == 0)
+					{
+						$rootScope.notificationsCount = 0;
+						$rootScope.notifications = [];
+					} else {
+						$rootScope.notificationsCount = response.log_count;
+						$rootScope.notifications = response.event_logs;
+					}
+					credentials(response, email, password);
+					$state.go('tab.home');
+					$ionicLoading.hide();
+				})
+				.error(function(err){
+					$ionicPopup.alert({
+						title: 'Error',
+						cssClass: 'color: red',
+						template: 'Could not retrieve your profile, please try again.',
+						okType: 'button-assertive'
+					});
+					$ionicLoading.hide();
+				});
+			}, $timeout || 3000);		
+		}	
 	};
 
 	return token;

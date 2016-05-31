@@ -7,10 +7,10 @@ angular.module('starter')
 	$http, 
 	$ionicPopup, 
 	SNURL, 
-	$ionicHistory, 
 	$rootScope,
 	$cordovaOauth,
-	$ionicModal
+	$ionicModal,
+	AuthService
 ){
 	$scope.token = null;
 
@@ -27,52 +27,8 @@ angular.module('starter')
 	};
 
 	$scope.login = function(email, password){
-		$ionicHistory.clearHistory();
-		$ionicHistory.clearCache();
-		$ionicLoading.show();
-		$timeout(function(){
-			$http.post(SNURL+'authenticate', {
-				email: email,
-				password: password
-			})
-			.success(function(response){
-				if(response.log_count == 0)
-				{
-					$rootScope.notificationsCount = 0;
-					$rootScope.notifications = [];
-				} else {
-					$rootScope.notificationsCount = response.log_count;
-					$rootScope.notifications = response.event_logs;
-				}
-				$scope.getCredentials(response, email, password);
-				$state.go('tab.home');
-				$ionicLoading.hide();
-			})
-			.error(function(err){
-				$ionicPopup.alert({
-					title: 'Error',
-					cssClass: 'color: red',
-					template: 'Could not retrieve your profile, please try again.',
-					okType: 'button-assertive'
-				});
-				$ionicLoading.hide();
-			});
-		}, $timeout || 3000);		
-	};
-
-	$scope.getCredentials = function(response, email, password){
-		if(email == '')
-		{
-			email = response.email;
-		}
-
-		localStorage.setItem('token', response.token);
-		localStorage.setItem('user.email', email);
-		localStorage.setItem('user.password', password);
-		localStorage.setItem('user.name', response.user_name);
-		localStorage.setItem('user.avatar', response.user_avatar);
-	};
-
+		AuthService.login(email, password);
+	}
 	
 	$scope.googleLogin = function(){
 		$cordovaOauth.google("875167662896-f637cn01j1i4qb6cqjkhfi4q2722321e.apps.googleusercontent.com", ["email", "https://www.googleapis.com/auth/userinfo.profile"]).then(function(result){
@@ -120,4 +76,27 @@ angular.module('starter')
 	}
 
 	$scope.checkIfLoggedIn();
+})
+
+.controller('ReloginCtrl', function(
+	$scope, 
+	$http,  
+	$ionicLoading, 
+	$timeout, 
+	$state,
+	AuthService
+){
+	$scope.avatar = localStorage.getItem('user.avatar');
+	$scope.email = localStorage.getItem('user.email');
+	$scope.username = localStorage.getItem('user.name');
+	$scope.password = localStorage.getItem('user.password');
+
+	$scope.relogin = function(email, password){
+		AuthService.login(email, password);
+	}
+
+
+	$scope.login = function(){
+		AuthService.logout_no_loading();
+	};
 });

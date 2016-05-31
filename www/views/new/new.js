@@ -9,7 +9,8 @@ angular.module('starter')
 	$state, 
 	$cordovaCamera, 
 	$cordovaCapture, 
-	$ionicHistory
+	$ionicHistory,
+	AuthService
 ){	
 	// -------------------------------------Play Video---------------------------------
 	$scope.playingVideo = false;
@@ -222,6 +223,8 @@ angular.module('starter')
 			$scope.postNoFile(title, body, tags_name, topic_title, slug);
 		}
 	};
+
+	AuthService.status();
 });
 
 

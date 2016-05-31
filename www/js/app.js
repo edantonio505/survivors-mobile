@@ -158,6 +158,11 @@ angular.module('starter', [
     templateUrl: 'views/register/register.html',
     controller: 'LoginCtrl'
   })
+  .state('relogin', {
+    url: '/relogin',
+    templateUrl: 'views/login/relogin.html',
+    controller: 'ReloginCtrl'
+  })
   .state('tab.tag_category', {
     url: '/tag_category/:name',
     views:{

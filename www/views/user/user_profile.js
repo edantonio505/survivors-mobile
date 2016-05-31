@@ -8,7 +8,8 @@ angular.module('starter')
 	$timeout, 
 	UsersConnectionService, 
 	$state,
-	$rootScope
+	$rootScope,
+	AuthService
 ){
 	$scope.AuthUserEmail = localStorage.getItem('user.email');
 
@@ -49,4 +50,6 @@ angular.module('starter')
 		$state.go('tab.home_topic', {id: id});
 	};
 
+
+	AuthService.status();
 });

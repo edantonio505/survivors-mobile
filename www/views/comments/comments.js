@@ -1,11 +1,21 @@
 angular.module('starter')
-.controller('CommentsCtrl', function($http, $scope, $stateParams, SNURL, $ionicLoading, $timeout, $rootScope){
+.controller('CommentsCtrl', function(
+	$http, 
+	$scope, 
+	$stateParams, 
+	SNURL, 
+	$ionicLoading, 
+	$timeout, 
+	$rootScope,
+	AuthService
+){
 	var AuthUserName = localStorage.getItem('user.name');
 	var AuthUserAvatar = localStorage.getItem('user.avatar');
 	$scope.comments = [];
 	$scope.topic = $stateParams;
 
 	$scope.init = function(){
+		AuthService.status();
 		$http.get(SNURL+'comments/'+$stateParams.id)
 		.success(function(response){
 			$scope.body = response.body;

@@ -1,8 +1,9 @@
 angular.module('starter')
-.controller('NetworkCtrl', function($scope, $http, SNURL, $state, $rootScope){
+.controller('NetworkCtrl', function($scope, $http, SNURL, $state, $rootScope, AuthService){
 	var AuthEmail = localStorage.getItem('user.email');
 
 	$scope.init = function(){
+		AuthService.status();
 		$http.get(SNURL+'get_connections?AuthEmail='+AuthEmail)
 		.success(function(response){
 			$scope.connections = response;
