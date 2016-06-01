@@ -122,13 +122,24 @@ angular.module('starter')
 
 
 	$scope.uploadVideo = function(title, body, tags_name, topic_title, slug){
-		var fileName = 'survivorsNetwork' + new Date().getTime() + ".mp4";
+		var ext = "."+$scope.video.substr($scope.video.indexOf(".") + 1);
+		var mimeType = '';
+		if(ext == '.mp4'){
+			mimeType = 'video/mp4';
+		} else if(ext == '.mov')
+		{
+			mimeType = 'video/quicktime';
+		} else {
+			mimeType = 'application/octet-stream';
+		}
+
+		var fileName = 'survivorsNetwork' + new Date().getTime() + ext;
 		var options = {
 			fileKey: "video",
 			fileName: fileName,
 			httpMethod: "POST",
 			chunkedMode: true,
-			mimeType: "video/mp4",
+			mimeType: mimeType,
 			params: {
 		    	title: title,
 				body: body,
@@ -138,7 +149,6 @@ angular.module('starter')
 				email: email
 		    }
 		};
-
 		$scope.uploadFile(options, $scope.video);
 	};
 
