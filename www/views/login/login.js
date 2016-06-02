@@ -99,4 +99,19 @@ angular.module('starter')
 	$scope.login = function(){
 		AuthService.logout_no_loading();
 	};
+
+
+
+	$scope.getCredentials = function(response, email, password){
+		if(email == '')
+		{
+			email = response.email;
+		}
+
+		localStorage.setItem('token', response.token);
+		localStorage.setItem('user.email', email);
+		localStorage.setItem('user.password', password);
+		localStorage.setItem('user.name', response.user_name);
+		localStorage.setItem('user.avatar', response.user_avatar);
+	};
 });

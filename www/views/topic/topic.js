@@ -10,6 +10,10 @@ angular.module('starter')
 	.success(function(response){
 		$scope.topic = response;
 		$scope.video = response.video;
+
+		// $scope.videoType = videoService.getMimeTypeFromUrl($scope.video);
+		$scope.videoType = 'video/mp4';
+
 		if($scope.video != '')
 		{
 			$scope.video_visible = true;

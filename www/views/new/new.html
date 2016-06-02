@@ -37,7 +37,7 @@
 			<div class="row">
 				<div class="col" ng-show="hasFile">
 					<img src="img/thumbnail.png" ng-show="video != ''" ng-hide="playingVideo" class="picture" id="thumbnail" ng-click="playVideo()">
-					<cordova-video class="picture" ng-show="playingVideo" src="video"></cordova-video>
+					<cordova-video class="picture" ng-show="playingVideo" src="video" type="videoType"></cordova-video>
 					<img class="picture" ng-show="picture != undefined" id="myImage" src="{{ picture }}" />
 				</div>
 				<div class="col" ng-class="{'col-67': hasFile}">

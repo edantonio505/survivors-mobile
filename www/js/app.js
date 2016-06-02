@@ -230,14 +230,14 @@ angular.module('starter', [
 .directive("cordovaVideo", function () {
   return {
     restrict: 'AEC',
-    scope: {src: '='},
+    scope: {src: '=', type: '='},
     link: function(scope, element, attrs) {
       scope.$watch('src', function(newVal, oldVal) {
         if (scope.src != "") {
           // Create a div object
           var div = document.createElement('div');
           div.innerHTML = "<video id='video' class=\"video\" controls>"+
-                          "<source src=\"" + scope.src + "\" type=\"video/mp4\">"+
+                          "<source src=\"" + scope.src + "\" type=\""+scope.type+"\">"+
                           "</video>";
           
           // Delete previous video if exists

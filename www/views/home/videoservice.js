@@ -22,7 +22,50 @@ angular.module('starter')
 				thumbnail.style.display = 'block';
 				video.style.display = 'none';
 			}, true);
-		}
+		},
+
+		getExtensionType: function(video){
+			var ext = "."+video.substr(video.indexOf(".") + 1);
+			var mimeType;
+			if(ext == '.mp4'){
+				mimeType = 'video/mp4';
+			} else if(ext == '.mov'){
+				mimeType = 'video/quicktime';
+			} else if(ext == '.ogg' || ext == '.ogv' || ext == '.ogm'){
+				mimeType = 'video/ogg';
+			} else if(ext == '.webm'){
+				mimeType = 'video/webm';
+			} else if (ext == '.3gp'){
+				mimeType = 'video/3gpp';
+			} else {
+				mimeType = 'video/mp4';
+			}
+
+
+			return {
+				extension: ext,
+				mimeType: mimeType 
+			};	
+		},
+
+		getMimeTypeFromUrl: function(video){
+			var ext = "."+video.split('.').pop();
+			if(ext == '.mp4'){
+				mimeType = 'video/mp4';
+			} else if(ext == '.mov'){
+				mimeType = 'video/quicktime';
+			} else if(ext == '.ogg' || ext == '.ogv' || ext == '.ogm'){
+				mimeType = 'video/ogg';
+			} else if(ext == '.webm'){
+				mimeType = 'video/webm';
+			} else if (ext == '.3gp'){
+				mimeType = 'video/3gpp';
+			} else {
+				mimeType = 'video/mp4';
+			}
+
+			return mimeType;
+		},
 	};
 
 	return video;

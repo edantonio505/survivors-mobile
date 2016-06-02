@@ -12,7 +12,8 @@ angular.module('starter')
 	$ionicHistory,
 	AuthService,
 	$q,
-	$filter
+	$filter,
+	videoService
 ){	
 	// -------------------------------------Play Video---------------------------------
 	$scope.playingVideo = false;
@@ -65,6 +66,8 @@ angular.module('starter')
 
 	   	$cordovaCapture.captureVideo(options).then(function(videoData) {
 	     	$scope.video = videoData[0].fullPath;
+	     	var v = videoService.getExtensionType($scope.video);
+	     	$scope.videoType = v.mimeType;
 	     	$scope.hasFile = true;
 	     	$scope.picture = undefined;
 	    }, function(err) {
@@ -111,7 +114,7 @@ angular.module('starter')
 			$ionicLoading.hide();
 			$ionicPopup.alert({
 		     title: 'Error',
-		     template: 'Check your internet conneciton or try again later.'
+		     template: 'Check your internet connection or try again later.'
 		   });
 			// $scope.err = err;
 			console.log(err);
@@ -122,24 +125,14 @@ angular.module('starter')
 
 
 	$scope.uploadVideo = function(title, body, tags_name, topic_title, slug){
-		var ext = "."+$scope.video.substr($scope.video.indexOf(".") + 1);
-		var mimeType = '';
-		if(ext == '.mp4'){
-			mimeType = 'video/mp4';
-		} else if(ext == '.mov')
-		{
-			mimeType = 'video/quicktime';
-		} else {
-			mimeType = 'application/octet-stream';
-		}
-
-		var fileName = 'survivorsNetwork' + new Date().getTime() + ext;
+		var v = videoService.getExtensionType($scope.video);
+		var fileName = 'survivorsNetwork' + new Date().getTime() + v.extension;
 		var options = {
 			fileKey: "video",
 			fileName: fileName,
 			httpMethod: "POST",
 			chunkedMode: true,
-			mimeType: mimeType,
+			mimeType: $scope.videoType,
 			params: {
 		    	title: title,
 				body: body,
@@ -210,6 +203,7 @@ angular.module('starter')
 		$scope.picture = undefined;
 		$scope.video = '';
 		$scope.tags = [];
+		$scope.videoType = '';
 	};
 
 
