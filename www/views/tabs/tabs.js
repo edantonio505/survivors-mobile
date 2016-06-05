@@ -82,9 +82,13 @@ angular.module('starter')
   	};
 
   	$scope.onTabDeselected = function(){
-  		if($rootScope.notifications.length > 30)
-  		{	
-  			$rootScope.notifications.splice(30, $rootScope.notifications.length - 30);
+
+  		if($rootScope.notifications != undefined)
+  		{
+  			if($rootScope.notifications.length > 30)
+  			{	
+  				$rootScope.notifications.splice(30, $rootScope.notifications.length - 30);
+  			}
   		}
   	};
 
