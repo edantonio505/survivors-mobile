@@ -211,6 +211,10 @@ angular.module('starter')
           callback.apply(socket, args);
         });
       }.bind(this));
-    }
+    },
+
+    removeAllListeners: function() {
+        socket.removeAllListeners();
+	}
   };
 });

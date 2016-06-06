@@ -141,6 +141,11 @@ angular.module('starter')
 		EventService.handleEvents(data);
 	});
 	// --------------------------------------------------------------------------------------------
+
+
+	$scope.$on('$destroy', function (event) {
+        socket.removeAllListeners();
+    });
 })
 
 
