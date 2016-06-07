@@ -33,7 +33,7 @@ angular.module('starter')
 	// -------------------------------------------------Social Login----------------------------------
 	
 	$scope.googleLogin = function(){
-		$cordovaOauth.google("875167662896-f637cn01j1i4qb6cqjkhfi4q2722321e.apps.googleusercontent.com", ["profile"]).then(function(result){
+		$cordovaOauth.google("875167662896-f637cn01j1i4qb6cqjkhfi4q2722321e.apps.googleusercontent.com", ["email","profile"]).then(function(result){
 		 	$scope.access_token = result.access_token;
 		 	$scope.social_type = 'google';
 		 	$ionicModal.fromTemplateUrl('views/login/create_password.html', {
