@@ -29,10 +29,13 @@ angular.module('starter')
 	$scope.login = function(email, password){
 		AuthService.login(email, password);
 	}
+
+	// -------------------------------------------------Social Login----------------------------------
 	
 	$scope.googleLogin = function(){
-		$cordovaOauth.google("875167662896-f637cn01j1i4qb6cqjkhfi4q2722321e.apps.googleusercontent.com", ["email", "https://www.googleapis.com/auth/userinfo.profile"]).then(function(result){
+		$cordovaOauth.google("875167662896-f637cn01j1i4qb6cqjkhfi4q2722321e.apps.googleusercontent.com", ["profile"]).then(function(result){
 		 	$scope.access_token = result.access_token;
+		 	$scope.social_type = 'google';
 		 	$ionicModal.fromTemplateUrl('views/login/create_password.html', {
 			    scope: $scope,
 				animation: 'slide-in-up'
@@ -43,7 +46,31 @@ angular.module('starter')
 		}, function(error) {
 		    console.log("Error -> " + error);
 		});
-	}
+	};
+
+
+	$scope.facebookLogin = function() {
+        $cordovaOauth.facebook("1130684936954183", ["public_profile,email,user_about_me"]).then(function(result) {
+    		$scope.access_token = result.access_token;
+    		$scope.social_type = 'facebook';
+		 	$ionicModal.fromTemplateUrl('views/login/create_password.html', {
+			    scope: $scope,
+				animation: 'slide-in-up'
+			}).then(function(modal) {
+				$scope.modal = modal;
+				$scope.modal.show();
+			});
+
+        }, function(error) {
+            console.log("Error -> " + error);
+        });
+    };
+	// -------------------------------------------------Social Login----------------------------------
+
+
+
+
+
 
 	$scope.closeModal = function(){
 		$scope.modal.hide();
@@ -54,6 +81,7 @@ angular.module('starter')
 		$ionicLoading.show();
 		$http.post(SNURL+'authenticate/signup_oauth', {
 			access_token: $scope.access_token,
+			social_type: $scope.social_type,
 			password: newPassword		
 		}).success(function(response){
 			$scope.getCredentials(response, '', newPassword);
